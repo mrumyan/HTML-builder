@@ -12,15 +12,21 @@ const copyFile = (fileName) => {
     });
 };
 
-fs.mkdir(newDirPath, { recursive: true }, error => {
+fs.rm(newDirPath, { recursive: true }, error => {
     if (!error) {
-        fs.readdir(dirPath, { withFileTypes: true }, (error, files) => {
+        fs.mkdir(newDirPath, { recursive: true }, error => {
             if (!error) {
-                for (let file of files) {
-                    if (file.isFile()) {
-                        copyFile(file.name);
+                fs.readdir(dirPath, { withFileTypes: true }, (error, files) => {
+                    if (!error) {
+                        for (let file of files) {
+                            if (file.isFile()) {
+                                copyFile(file.name);
+                            }
+                        }
+                    } else {
+                        console.log(error);
                     }
-                }
+                });
             } else {
                 console.log(error);
             }
