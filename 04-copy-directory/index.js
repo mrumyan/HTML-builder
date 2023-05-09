@@ -12,7 +12,7 @@ const copyFile = (fileName) => {
     });
 };
 
-fs.rm(newDirPath, { recursive: true }, error => {
+fs.rm(newDirPath, { recursive: true, force: true }, error => {
     if (!error) {
         fs.mkdir(newDirPath, { recursive: true }, error => {
             if (!error) {
